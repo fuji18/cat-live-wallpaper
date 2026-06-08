@@ -11,7 +11,7 @@
 | 永続ドキュメント | `docs/` に保存済み | 継続運用 |
 | 作業単位ドキュメント | `.steering/` を使用 | 継続運用 |
 | ルート Gradle / Wrapper | 整備済み(TICKET-001) | 継続運用 |
-| Android アプリ本体 | 未作成 | `app/` モジュールを追加(TICKET-002) |
+| Android アプリ本体 | `app/` モジュールの最小骨格を作成済み(TICKET-002) | TICKET-003 以降でドメイン実装を追加 |
 | CI 設定 | `.github/` 配下を利用可能 | lint / test / build を自動化 |
 
 ## ルート構造
