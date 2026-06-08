@@ -243,6 +243,31 @@ Android プロジェクト初期化後は、次を標準の検証コマンドと
 
 docs 先行フェーズでは、作成・更新した Markdown の診断確認を最低限の品質ゲートとする。
 
+## 開発環境の運用 (VSCode / Android Studio)
+
+実装は VSCode、ローカルでの動作確認は Android Studio という2ツール構成を前提とする。両ツールでビルド結果や設定が食い違わないよう、次のルールを明示する。
+
+### ツールの役割分担
+
+- **VSCode**: コード編集、および `./gradlew testDebugUnitTest` / `lint` / `assembleDebug` などコマンドラインで完結する検証
+- **Android Studio**: エミュレータ・実機を使った動作確認、`connectedDebugAndroidTest` の実行、ライブ壁紙としての見た目・タップ反応の確認
+
+`connectedDebugAndroidTest` やライブ壁紙のプレビューはエミュレータまたは実機が前提であり、VSCode 単体では実行できない。「コード変更とユニットテスト/lint は VSCode、実機確認と計装テストは Android Studio」という役割分担を崩さない。
+
+### JDK / SDK バージョンの固定
+
+- JDK バージョンは各 IDE の内蔵 JDK 任せにせず、`build.gradle.kts` の Gradle Toolchain で明示的に指定する。
+- これにより、VSCode のターミナルから実行する `./gradlew` と Android Studio が実行するビルドが同一の JDK 上で動作し、ビルド結果の差異を防ぐ。
+- `compileSdk` / `targetSdk` / `minSdk` の基準は前述の「依存関係とバージョン更新」に従う。
+
+### ローカル専用ファイルの扱い
+
+- `local.properties` は Android Studio が自動生成する SDK パスを含むためコミットしない。`.gitignore` に追加し、各環境・各開発者がそれぞれ保持する。
+- `.idea/`(Android Studio)と `.vscode/`(VSCode)の設定ディレクトリは個人の作業環境設定であり、原則コミットしない。
+- チームで揃えたい設定(推奨拡張機能など)がある場合は、`.vscode/extensions.json` のように共有価値のある最小限のファイルのみ例外的にコミットを検討する。
+
+詳細なファイル配置は [repository-structure.md](./repository-structure.md) の「ローカル専用ファイルと IDE 設定」を参照する。
+
 ## Git / PR 運用
 
 ### ブランチ戦略
