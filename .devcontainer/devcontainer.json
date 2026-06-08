@@ -4,7 +4,11 @@
   "workspaceFolder": "/workspaces/cat-live-wallpaper",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17",
+      "jdkDistro": "tem"
+    }
   },
   "containerEnv": {
     "GITHUB_TOKEN": "${localEnv:GH_TOKEN}"
