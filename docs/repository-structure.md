@@ -126,6 +126,18 @@ project-root/
 - 実装コードは置かない。
 - プロジェクト運用ルールのテンプレート変更時のみ更新する。
 
+### ローカル専用ファイルと IDE 設定
+
+**前提**: 実装は VSCode、ローカルでの動作確認は Android Studio という2ツール構成を取る。
+
+**コミットしないもの**(`.gitignore` で除外する):
+- `local.properties`: Android Studio が自動生成する SDK パスを含む。環境ごとに値が異なるためコミット禁止。
+- `.idea/`: Android Studio のプロジェクト設定・実行構成。個人の作業環境に依存する。
+- `.vscode/`: VSCode のワークスペース設定。個人の作業環境に依存する。
+
+**例外的にコミットを検討してよいもの**:
+- `.vscode/extensions.json`: チームで揃えたい推奨拡張機能(Kotlin 関連など)を共有する場合のみ。
+
 ## Android ソース構造
 
 ### wallpaper/

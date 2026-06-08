@@ -32,6 +32,12 @@ Thumbs.db
 *.swo
 *~
 
+# Android / Gradle (local environment)
+local.properties
+*.iml
+.gradle/
+captures/
+
 # Testing
 coverage/
 .nyc_output/
