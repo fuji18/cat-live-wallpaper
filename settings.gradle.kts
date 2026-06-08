@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "cat-live-wallpaper"
 
-// TICKET-002 で Android アプリモジュールを追加する際にここへ include(":app") を追加する
+include(":app")
