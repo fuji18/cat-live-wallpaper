@@ -1,7 +1,7 @@
 # TICKET-003: Manifest と壁紙メタデータの追加
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-002`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] Manifest にライブ壁紙サービス定義がある
-- [ ] `res/xml/wallpaper.xml` が存在する
+- [x] Manifest にライブ壁紙サービス定義がある
+- [x] `res/xml/wallpaper.xml` が存在する
 
 ## 参照ドキュメント
 
