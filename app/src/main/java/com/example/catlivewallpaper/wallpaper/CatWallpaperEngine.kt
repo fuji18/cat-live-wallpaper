@@ -2,6 +2,7 @@ package com.example.catlivewallpaper.wallpaper
 
 import android.os.SystemClock
 import android.service.wallpaper.WallpaperService
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import com.example.catlivewallpaper.logic.CatBehaviorController
 import com.example.catlivewallpaper.logic.FrameTicker
@@ -30,6 +31,17 @@ class CatWallpaperEngine(
     )
 
     private var isVisible = false
+    private var surfaceWidth = 0
+    private var surfaceHeight = 0
+
+    override fun onTouchEvent(event: MotionEvent) {
+        if (event.action != MotionEvent.ACTION_UP) return
+        val nowMs = SystemClock.uptimeMillis()
+        val x = event.x.coerceIn(0f, surfaceWidth.toFloat())
+        val y = event.y.coerceIn(0f, surfaceHeight.toFloat())
+        val updatedToy = touchReactionController.onTap(x, y, nowMs)
+        coordinator.updateState { it.copy(toy = updatedToy) }
+    }
 
     override fun onVisibilityChanged(visible: Boolean) {
         isVisible = visible
@@ -42,6 +54,8 @@ class CatWallpaperEngine(
     }
 
     override fun onSurfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        surfaceWidth = width
+        surfaceHeight = height
         coordinator.stop()
         renderer.updateViewport(width, height)
         val assets = bitmapRepository.loadAll()

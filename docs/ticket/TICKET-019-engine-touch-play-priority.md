@@ -1,7 +1,7 @@
 # TICKET-019: Engine タップ受理と `PLAY` 優先制御実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-016`, `TICKET-018`, `TICKET-012`
 
 ## 目的
@@ -16,8 +16,8 @@ Engine のタップ入力を反応制御へ接続し、通常遷移より `PLAY`
 
 ## 完了条件
 
-- [ ] タップ入力から毛糸玉表示へ接続できる
-- [ ] タップ後に `PLAY` を優先できる
+- [x] タップ入力から毛糸玉表示へ接続できる（ACTION_UP → touchReactionController.onTap → coordinator.updateState）
+- [x] タップ後に `PLAY` を優先できる（ToyState.isVisible=true → CatBehaviorControllerImpl が PLAY を優先、既実装）
 
 ## 参照ドキュメント
 
