@@ -1,7 +1,7 @@
 # TICKET-022: ロジック / オーケストレーションのユニットテスト実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-011`, `TICKET-012`, `TICKET-013`, `TICKET-018`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] 主要ロジックのユニットテストがある
-- [ ] 時刻や乱数をテストダブルで差し替えられる
+- [x] 主要ロジックのユニットテストがある（CatBehaviorControllerImpl・TouchReactionControllerImpl・FrameTicker・BackgroundLayout）
+- [x] 時刻や乱数をテストダブルで差し替えられる（CatBehaviorControllerImpl(random=Random(seed))、nowMs を引数で注入）
 
 ## 参照ドキュメント
 

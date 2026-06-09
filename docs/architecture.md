@@ -27,7 +27,9 @@
 | Android Studio | Stable Channel をプロジェクト開始時点で固定 | IDE / ビルド設定 | Android開発の標準環境であり、WallpaperService の検証やプロファイリングに適しているため |
 | Android Gradle Plugin | 8.7.x 系 | ビルド設定 | Kotlin 2.0.x と整合し、API Level 34 向けビルドの再現性を保ちやすいため |
 | Gradle Wrapper | 8.10.x 系 | ビルド管理 | Android Gradle Plugin 8.7.x と組み合わせて再現可能なビルドを維持するため |
-| JUnit | 5.10.x 系 | ユニットテスト | 状態遷移やオフセット計算などの純粋ロジックを分離テストしやすいため |
+| JUnit 4 (junit:junit) | 4.13.x 系 | ユニットテスト | Robolectric との親和性を優先し JUnit 4 を採用（JUnit 5 は Robolectric の AGP 統合と競合するため） |
+| Robolectric | 4.11.x 系 | Android API を使うユニットテスト | Handler・Rect・Bitmap など Android API をデバイスなしで JVM 上でテストするため |
+| Mockito-Kotlin | 5.2.x 系 | テストダブル | SurfaceHolder など final Android クラスのモックに使用 |
 | AndroidX Test / Espresso | 1.6.x / 3.6.x 系 | 統合テスト / UIテスト | 壁紙プレビューや端末回転などの Android 実機寄り検証に向いているため |
 
 ### バージョン固定方針
@@ -40,7 +42,8 @@
 | Android Gradle Plugin | 8.7.x | パッチ更新のみ許可 | ビルド再現性を保つため |
 | Gradle Wrapper | 8.10.x | パッチ更新のみ許可 | CI とローカルのビルド差異を抑えるため |
 | AndroidX Test / Espresso | 1.6.x / 3.6.x | マイナー固定、パッチ更新のみ許可 | テスト基盤の破壊的変更を避けるため |
-| JUnit | 5.10.x | パッチ更新のみ許可 | テストランナーの安定性を優先するため |
+| JUnit 4 (junit:junit) | 4.13.x | パッチ更新のみ許可 | Robolectric 依存のため JUnit 4 系に固定 |
+| Robolectric | 4.11.x | パッチ更新のみ許可 | Android SDK バージョン追随を段階的に行うため |
 
 ## アーキテクチャパターン
 
@@ -374,7 +377,8 @@ graph TB
 | Kotlin | 実装言語 | 2.0.x のパッチ更新のみ許可 |
 | Android Gradle Plugin | ビルド設定 | 8.7.x のパッチ更新のみ許可 |
 | AndroidX Test / Espresso | 統合テスト | 1.6.x / 3.6.x のパッチ更新のみ許可 |
-| JUnit | ユニットテスト | 5.10.x のパッチ更新のみ許可 |
+| JUnit 4 | ユニットテスト | 4.13.x のパッチ更新のみ許可 |
+| Robolectric | Android API を使うユニットテスト | 4.11.x のパッチ更新のみ許可 |
 
 ## データモデル設計(概要)
 
