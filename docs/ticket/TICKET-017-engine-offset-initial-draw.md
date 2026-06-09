@@ -1,7 +1,7 @@
 # TICKET-017: Engine の offset 反映と初回描画実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-010`, `TICKET-016`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] offset 変更が背景描画へ反映される
-- [ ] 初回描画経路が成立している
+- [x] offset 変更が背景描画へ反映される（onOffsetsChanged → coordinator.updateState → wallpaperOffsetX）
+- [x] 初回描画経路が成立している（onSurfaceChanged → coordinator.start() → drawFrame()）
 
 ## 参照ドキュメント
 

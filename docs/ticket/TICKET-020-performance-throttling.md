@@ -1,7 +1,7 @@
 # TICKET-020: 描画頻度 throttling の実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-014`, `TICKET-016`, `TICKET-017`, `TICKET-019`
 
 ## 目的
@@ -15,8 +15,8 @@
 
 ## 完了条件
 
-- [ ] 非表示時に描画ループが止まる
-- [ ] 最大 15fps / 2fps を超えない
+- [x] 非表示時に描画ループが止まる（onVisibilityChanged(false) → coordinator.stop() + isVisible=false、DrawFrameCoordinator.drawFrame の isVisible ガード）
+- [x] 最大 15fps / 2fps を超えない（FrameTicker.intervalFor: WALK/PLAY→67ms、IDLE→500ms、scheduleNext の先頭 cancel で二重予約防止）
 
 ## 参照ドキュメント
 

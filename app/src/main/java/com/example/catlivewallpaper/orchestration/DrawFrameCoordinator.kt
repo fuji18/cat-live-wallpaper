@@ -1,15 +1,20 @@
 package com.example.catlivewallpaper.orchestration
 
 import android.os.SystemClock
+import android.util.Log
 import android.view.SurfaceHolder
 import com.example.catlivewallpaper.logic.CatBehaviorController
 import com.example.catlivewallpaper.logic.FrameTicker
+import com.example.catlivewallpaper.logic.TouchReactionController
 import com.example.catlivewallpaper.model.SceneState
 import com.example.catlivewallpaper.render.SceneRenderer
 import com.example.catlivewallpaper.render.assets.AssetSet
 
+private const val TAG = "DrawFrameCoordinator"
+
 class DrawFrameCoordinator(
     private val behaviorController: CatBehaviorController,
+    private val touchReactionController: TouchReactionController,
     private val renderer: SceneRenderer,
     private val frameTicker: FrameTicker,
 ) {
@@ -25,8 +30,16 @@ class DrawFrameCoordinator(
         drawFrame(SystemClock.uptimeMillis())
     }
 
+    val isStarted: Boolean get() = sceneState != null
+
     fun stop() {
         frameTicker.cancel()
+    }
+
+    fun invalidate() {
+        sceneState = null
+        holder = null
+        assets = null
     }
 
     fun updateState(transform: (SceneState) -> SceneState) {
@@ -39,11 +52,18 @@ class DrawFrameCoordinator(
         val currentHolder = holder ?: return
         val currentAssets = assets ?: return
 
-        val updatedCat = behaviorController.update(nowMs, state.cat, state.toy)
-        val updatedState = state.copy(cat = updatedCat)
-        sceneState = updatedState
+        try {
+            val updatedToy = touchReactionController.update(nowMs, state.toy)
+            val updatedCat = behaviorController.update(nowMs, state.cat, updatedToy)
+            val updatedState = state.copy(cat = updatedCat, toy = updatedToy)
+            sceneState = updatedState
 
-        renderer.render(currentHolder, updatedState, currentAssets)
-        frameTicker.scheduleNext(updatedCat.mode) { drawFrame(SystemClock.uptimeMillis()) }
+            renderer.render(currentHolder, updatedState, currentAssets)
+            frameTicker.scheduleNext(updatedCat.mode) { drawFrame(SystemClock.uptimeMillis()) }
+        } catch (e: Exception) {
+            Log.e(TAG, "drawFrame_error: ${e.message}")
+            val recoveryMode = sceneState?.cat?.mode ?: state.cat.mode
+            frameTicker.scheduleNext(recoveryMode) { drawFrame(SystemClock.uptimeMillis()) }
+        }
     }
 }
