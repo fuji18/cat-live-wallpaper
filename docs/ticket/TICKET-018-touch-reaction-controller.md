@@ -1,7 +1,7 @@
 # TICKET-018: `TouchReactionController` の実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-005`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] タップから `ToyState` を生成できる
-- [ ] 可視期限切れで非表示へ戻せる
+- [x] タップから `ToyState` を生成できる（onTap → ToyState(isVisible=true, visibleUntilMs=nowMs+2000)）
+- [x] 可視期限切れで非表示へ戻せる（update: nowMs>=visibleUntilMs で isVisible=false）
 
 ## 参照ドキュメント
 

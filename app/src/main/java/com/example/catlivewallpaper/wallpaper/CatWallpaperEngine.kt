@@ -5,6 +5,7 @@ import android.service.wallpaper.WallpaperService
 import android.view.SurfaceHolder
 import com.example.catlivewallpaper.logic.CatBehaviorController
 import com.example.catlivewallpaper.logic.FrameTicker
+import com.example.catlivewallpaper.logic.TouchReactionController
 import com.example.catlivewallpaper.model.SceneState
 import com.example.catlivewallpaper.model.SceneTheme
 import com.example.catlivewallpaper.model.ToySource
@@ -15,6 +16,7 @@ import com.example.catlivewallpaper.render.assets.BitmapRepository
 
 class CatWallpaperEngine(
     private val behaviorController: CatBehaviorController,
+    private val touchReactionController: TouchReactionController,
     private val renderer: SceneRenderer,
     private val frameTicker: FrameTicker,
     private val bitmapRepository: BitmapRepository,
@@ -22,6 +24,7 @@ class CatWallpaperEngine(
 
     private val coordinator = DrawFrameCoordinator(
         behaviorController = behaviorController,
+        touchReactionController = touchReactionController,
         renderer = renderer,
         frameTicker = frameTicker,
     )
