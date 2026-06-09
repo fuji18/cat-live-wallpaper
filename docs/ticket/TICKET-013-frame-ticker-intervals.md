@@ -1,7 +1,7 @@
 # TICKET-013: `FrameTicker` 間隔制御の実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-004`, `TICKET-011`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] 状態別に 67ms / 500ms を返せる
-- [ ] 予約開始 / 停止 API がある
+- [x] 状態別に 67ms / 500ms を返せる（intervalFor: WALK/PLAY→67ms、IDLE→500ms）
+- [x] 予約開始 / 停止 API がある（scheduleNext / cancel）
 
 ## 参照ドキュメント
 
