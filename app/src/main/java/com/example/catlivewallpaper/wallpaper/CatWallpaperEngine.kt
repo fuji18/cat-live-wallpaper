@@ -39,6 +39,7 @@ class CatWallpaperEngine(
 
     override fun onTouchEvent(event: MotionEvent) {
         if (event.action != MotionEvent.ACTION_UP) return
+        if (surfaceWidth == 0 || surfaceHeight == 0) return
         val tapStartMs = SystemClock.uptimeMillis()
         val x = event.x.coerceIn(0f, surfaceWidth.toFloat())
         val y = event.y.coerceIn(0f, surfaceHeight.toFloat())
@@ -52,7 +53,7 @@ class CatWallpaperEngine(
         coordinator.updateState { it.copy(isVisible = visible) }
         if (!visible) {
             coordinator.stop()
-        } else {
+        } else if (coordinator.isStarted) {
             coordinator.drawFrame(SystemClock.uptimeMillis())
         }
     }
@@ -62,6 +63,7 @@ class CatWallpaperEngine(
         surfaceWidth = width
         surfaceHeight = height
         coordinator.stop()
+        coordinator.invalidate()
         renderer.updateViewport(width, height)
         val assets = try {
             bitmapRepository.loadAll()

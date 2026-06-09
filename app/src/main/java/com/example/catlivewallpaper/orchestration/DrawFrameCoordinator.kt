@@ -30,8 +30,16 @@ class DrawFrameCoordinator(
         drawFrame(SystemClock.uptimeMillis())
     }
 
+    val isStarted: Boolean get() = sceneState != null
+
     fun stop() {
         frameTicker.cancel()
+    }
+
+    fun invalidate() {
+        sceneState = null
+        holder = null
+        assets = null
     }
 
     fun updateState(transform: (SceneState) -> SceneState) {
@@ -54,7 +62,8 @@ class DrawFrameCoordinator(
             frameTicker.scheduleNext(updatedCat.mode) { drawFrame(SystemClock.uptimeMillis()) }
         } catch (e: Exception) {
             Log.e(TAG, "drawFrame_error: ${e.message}")
-            frameTicker.scheduleNext(state.cat.mode) { drawFrame(SystemClock.uptimeMillis()) }
+            val recoveryMode = sceneState?.cat?.mode ?: state.cat.mode
+            frameTicker.scheduleNext(recoveryMode) { drawFrame(SystemClock.uptimeMillis()) }
         }
     }
 }
