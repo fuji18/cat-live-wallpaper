@@ -2,6 +2,7 @@ package com.example.catlivewallpaper.wallpaper
 
 import android.os.SystemClock
 import android.service.wallpaper.WallpaperService
+import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import com.example.catlivewallpaper.logic.CatBehaviorController
@@ -14,6 +15,8 @@ import com.example.catlivewallpaper.model.ToyState
 import com.example.catlivewallpaper.orchestration.DrawFrameCoordinator
 import com.example.catlivewallpaper.render.SceneRenderer
 import com.example.catlivewallpaper.render.assets.BitmapRepository
+
+private const val TAG = "CatWallpaperEngine"
 
 class CatWallpaperEngine(
     private val behaviorController: CatBehaviorController,
@@ -36,11 +39,12 @@ class CatWallpaperEngine(
 
     override fun onTouchEvent(event: MotionEvent) {
         if (event.action != MotionEvent.ACTION_UP) return
-        val nowMs = SystemClock.uptimeMillis()
+        val tapStartMs = SystemClock.uptimeMillis()
         val x = event.x.coerceIn(0f, surfaceWidth.toFloat())
         val y = event.y.coerceIn(0f, surfaceHeight.toFloat())
-        val updatedToy = touchReactionController.onTap(x, y, nowMs)
+        val updatedToy = touchReactionController.onTap(x, y, tapStartMs)
         coordinator.updateState { it.copy(toy = updatedToy) }
+        Log.d(TAG, "tap_reaction_ms=${SystemClock.uptimeMillis() - tapStartMs}")
     }
 
     override fun onVisibilityChanged(visible: Boolean) {
@@ -54,11 +58,17 @@ class CatWallpaperEngine(
     }
 
     override fun onSurfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        val startMs = SystemClock.uptimeMillis()
         surfaceWidth = width
         surfaceHeight = height
         coordinator.stop()
         renderer.updateViewport(width, height)
-        val assets = bitmapRepository.loadAll()
+        val assets = try {
+            bitmapRepository.loadAll()
+        } catch (e: Exception) {
+            Log.e(TAG, "asset_load_failed: ${e.message}")
+            return
+        }
         val initialCat = behaviorController.initialize(width, height)
         val initialState = SceneState(
             surfaceWidth = width,
@@ -76,6 +86,7 @@ class CatWallpaperEngine(
             ),
         )
         coordinator.start(initialState, holder, assets)
+        Log.d(TAG, "relayout_ms=${SystemClock.uptimeMillis() - startMs} w=$width h=$height")
     }
 
     override fun onOffsetsChanged(
