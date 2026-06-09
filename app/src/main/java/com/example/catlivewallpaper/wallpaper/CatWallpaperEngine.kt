@@ -61,6 +61,19 @@ class CatWallpaperEngine(
         coordinator.start(initialState, holder, assets)
     }
 
+    override fun onOffsetsChanged(
+        xOffset: Float,
+        yOffset: Float,
+        xOffsetStep: Float,
+        yOffsetStep: Float,
+        xPixelOffset: Int,
+        yPixelOffset: Int,
+    ) {
+        coordinator.updateState {
+            it.copy(wallpaperOffsetX = SceneState.normalizeOffset(xOffset))
+        }
+    }
+
     override fun onSurfaceDestroyed(holder: SurfaceHolder) {
         coordinator.stop()
         bitmapRepository.clear()
