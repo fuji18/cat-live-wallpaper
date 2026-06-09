@@ -33,11 +33,11 @@ class CatBehaviorControllerImpl(
         val isPlayRequested = toy.isVisible && toy.source == ToySource.USER_TAP
         val stateEndsAt = current.stateStartedAtMs + current.stateDurationMs
 
-        if (!isPlayRequested && nowMs < stateEndsAt) {
-            return advanceFrame(current)
-        }
-        if (isPlayRequested) {
+        if (isPlayRequested && current.mode != CatMode.PLAY) {
             return startPlayState(current, toy.anchorX, nowMs)
+        }
+        if (nowMs < stateEndsAt) {
+            return advanceFrame(current)
         }
         return selectNextState(current, nowMs)
     }

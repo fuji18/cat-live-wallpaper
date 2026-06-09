@@ -40,9 +40,10 @@ class DrawFrameCoordinator(
         val currentAssets = assets ?: return
 
         val updatedCat = behaviorController.update(nowMs, state.cat, state.toy)
-        sceneState = state.copy(cat = updatedCat)
+        val updatedState = state.copy(cat = updatedCat)
+        sceneState = updatedState
 
-        renderer.render(currentHolder, sceneState!!, currentAssets)
+        renderer.render(currentHolder, updatedState, currentAssets)
         frameTicker.scheduleNext(updatedCat.mode) { drawFrame(SystemClock.uptimeMillis()) }
     }
 }
