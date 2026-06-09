@@ -1,7 +1,7 @@
 # TICKET-005: 猫 / 毛糸玉 / テーマ状態モデル実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-002`
 
 ## 目的
@@ -15,8 +15,8 @@
 
 ## 完了条件
 
-- [ ] 猫状態と毛糸玉状態を表現できる
-- [ ] enum が正式ドキュメントの語彙と一致する
+- [x] 猫状態と毛糸玉状態を表現できる（CatStateSnapshot / ToyState data class を実装）
+- [x] enum が正式ドキュメントの語彙と一致する（CatMode: WALK/IDLE/PLAY、FacingDirection: LEFT/RIGHT、ToySource: USER_TAP/AUTO_PLAY）
 
 ## 参照ドキュメント
 

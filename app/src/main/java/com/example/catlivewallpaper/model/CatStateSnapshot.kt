@@ -1,7 +1,23 @@
 package com.example.catlivewallpaper.model
 
-// Stub - TICKET-005 で完全実装に差し替える
 data class CatStateSnapshot(
-    val positionX: Float = 0f,
-    val positionY: Float = 0f,
+    val mode: CatMode,
+    val facing: FacingDirection,
+    val positionX: Float,
+    val positionY: Float,
+    val velocityX: Float,
+    val frameIndex: Int,
+    val stateStartedAtMs: Long,
+    val stateDurationMs: Long,
 )
+
+enum class CatMode {
+    WALK,
+    IDLE,
+    PLAY,
+}
+
+enum class FacingDirection {
+    LEFT,
+    RIGHT,
+}
