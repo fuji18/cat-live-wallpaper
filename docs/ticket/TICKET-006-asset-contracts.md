@@ -1,7 +1,7 @@
 # TICKET-006: アセット契約の定義
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-002`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] `AssetSet` が描画に必要な素材を表現できる
-- [ ] night background の未配置を許容できる
+- [x] `AssetSet` が描画に必要な素材を表現できる（backgroundDay, catWalkFrames, catIdleFrame, catPlayFrames, toyYarn）
+- [x] night background の未配置を許容できる（`backgroundNight: Bitmap?` で nullable 契約）
 
 ## 参照ドキュメント
 

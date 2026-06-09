@@ -1,7 +1,7 @@
 # TICKET-004: `SceneState` の基礎モデル実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-002`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] `SceneState` が `data class` で実装されている
-- [ ] `wallpaperOffsetX` を安全範囲に収める手段がある
+- [x] `SceneState` が `data class` で実装されている
+- [x] `wallpaperOffsetX` を安全範囲に収める手段がある（`SceneState.normalizeOffset()` で `0f..1f` にクランプ）
 
 ## 参照ドキュメント
 

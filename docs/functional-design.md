@@ -598,8 +598,10 @@ app/
         CatWallpaperEngine.kt
       render/
         SceneRenderer.kt
-        BitmapRepository.kt
         SceneThemeResolver.kt
+        assets/
+          AssetSet.kt
+          BitmapRepository.kt
       logic/
         CatBehaviorController.kt
         TouchReactionController.kt
