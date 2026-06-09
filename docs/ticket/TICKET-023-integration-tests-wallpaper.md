@@ -1,7 +1,7 @@
 # TICKET-023: Wallpaper フロー統合テスト実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-017`, `TICKET-019`, `TICKET-020`, `TICKET-021`
 
 ## 目的
@@ -16,8 +16,8 @@
 
 ## 完了条件
 
-- [ ] MVP の主要統合フローを検証できる
-- [ ] Engine 統合後の主要 regressions を検知できる
+- [x] MVP の主要統合フローを検証できる
+- [x] Engine 統合後の主要 regressions を検知できる
 
 ## 参照ドキュメント
 
