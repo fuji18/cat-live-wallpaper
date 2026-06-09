@@ -10,12 +10,22 @@ class BitmapRepository(private val resources: Resources) {
     private var assetSet: AssetSet? = null
 
     fun loadAll(): AssetSet {
+        if (assetSet != null) {
+            Log.w(TAG, "loadAll() が既存アセット保持中に呼ばれた。旧アセットを解放して再ロード")
+            clear()
+        }
         return try {
             loadAllInternal(sampleSize = 1)
         } catch (e: OutOfMemoryError) {
-            Log.w(TAG, "OOM 発生。低解像度でリトライ", e)
+            Log.w(TAG, "OOM 発生。inSampleSize=2 でリトライ", e)
             clear()
-            loadAllInternal(sampleSize = 2)
+            try {
+                loadAllInternal(sampleSize = 2)
+            } catch (e2: OutOfMemoryError) {
+                Log.e(TAG, "inSampleSize=2 でも OOM。初期化を中止", e2)
+                clear()
+                throw e2
+            }
         }
     }
 
