@@ -1,7 +1,7 @@
 # TICKET-010: `SceneRenderer` の実装
 
 - 優先度: `P0`
-- ステータス: `todo`
+- ステータス: `done`
 - 依存チケット: `TICKET-005`, `TICKET-006`, `TICKET-007`, `TICKET-009`
 
 ## 目的
@@ -16,9 +16,9 @@
 
 ## 完了条件
 
-- [ ] 背景と猫を描画できる
-- [ ] 毛糸玉表示を描画できる
-- [ ] 描画レイヤーが状態遷移ロジックへ依存していない
+- [x] 背景と猫を描画できる（BackgroundLayout + SceneThemeResolver + Canvas.drawBitmap）
+- [x] 毛糸玉表示を描画できる（toy.isVisible 時のみ描画）
+- [x] 描画レイヤーが状態遷移ロジックへ依存していない（SceneState / AssetSet を受け取るのみ）
 
 ## 参照ドキュメント
 
